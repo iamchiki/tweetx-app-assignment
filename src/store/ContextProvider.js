@@ -18,7 +18,7 @@ const ContextProvider = (props) => {
         const docRef = doc(db, "users", user?.uid);
         const docSnap = await getDoc(docRef);
         console.log(docSnap.data());
-        setProfileData(docSnap.data());
+        setProfileData({ id: docSnap.id, ...docSnap.data() });
         // ctx.userProfile = docSnap.data();
       };
       fetchUser();

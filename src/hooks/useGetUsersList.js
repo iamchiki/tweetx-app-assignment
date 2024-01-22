@@ -10,7 +10,7 @@ const useGetUsersList = () => {
       const querySnapshot = await getDocs(collection(db, "users"));
 
       const users = querySnapshot.docs.map((doc) => {
-        return doc.data();
+        return { id: doc.id, ...doc.data() };
       });
 
       setUserList(users);
