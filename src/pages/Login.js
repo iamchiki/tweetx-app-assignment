@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,9 +8,30 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebase-config";
 
 const Login = () => {
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+
+  const navigate = useNavigate();
+  const signinHandler = async (e) => {
+    e.preventDefault();
+    try {
+      // login existing user
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+
+      navigate("/home");
+    } catch (error) {
+      navigate("/login");
+    }
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -24,7 +45,11 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={() => {}} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={signinHandler}
+          noValidate
+          sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -34,6 +59,7 @@ const Login = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            inputRef={emailRef}
           />
           <TextField
             margin="normal"
@@ -44,6 +70,7 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            inputRef={passwordRef}
           />
 
           <Button
