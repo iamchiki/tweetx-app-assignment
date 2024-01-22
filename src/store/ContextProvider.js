@@ -26,8 +26,7 @@ const ContextProvider = (props) => {
   }, [user]);
   const initialValues = {
     currentUser: user,
-    // userProfile: {},
-    userProfile: profileData,
+    userProfile: { ...profileData },
   };
   return (
     <TweetxContext.Provider value={initialValues}>
