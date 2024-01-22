@@ -8,25 +8,12 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { db } from "../firebase/firebase-config";
+
+import React from "react";
+import useGetUsersList from "../hooks/useGetUsersList";
 
 const Users = () => {
-  const [userList, setUserList] = useState([]);
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const querySnapshot = await getDocs(collection(db, "users"));
-
-      const users = querySnapshot.docs.map((doc) => {
-        return doc.data();
-      });
-      // console.log(querySnapshot);
-      console.log(users);
-      setUserList(users);
-    };
-    fetchUsers();
-  }, []);
+  const { userList } = useGetUsersList();
   return (
     <List
       sx={{
@@ -35,7 +22,7 @@ const Users = () => {
         bgcolor: "background.paper",
         margin: "0 auto",
       }}>
-      {userList.map((user) => {
+      {userList?.map((user) => {
         return (
           <>
             <ListItem alignItems="flex-start">
