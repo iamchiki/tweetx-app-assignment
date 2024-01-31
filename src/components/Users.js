@@ -1,19 +1,17 @@
-import {
-  Avatar,
-  Button,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { List } from "@mui/material";
 
-import React from "react";
+import React, { useContext } from "react";
 import useGetUsersList from "../hooks/useGetUsersList";
+import TweetxContext from "../store/context";
+
+import UserDisplyaCard from "./UserDisplyaCard";
 
 const Users = () => {
   const { userList } = useGetUsersList();
+
+  const ctx = useContext(TweetxContext);
+  console.log(ctx);
+
   return (
     <List
       sx={{
@@ -23,41 +21,15 @@ const Users = () => {
         margin: "0 auto",
       }}>
       {userList?.map((user) => {
+        let isFollowing = ctx?.userProfile?.following?.includes(user.id)
+          ? true
+          : false;
         return (
-          <>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="" src="" />
-              </ListItemAvatar>
-              <ListItemText
-                primary={user?.name}
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"></Typography>
-                    {user?.email}
-                  </React.Fragment>
-                }
-              />
-              <Button
-                sx={{
-                  color: "#fff",
-                  backgroundColor: "#ef4c4a",
-                  textTransform: "capitalize",
-                }}
-                variant="contained">
-                Follow
-              </Button>
-            </ListItem>
-            <Divider
-              sx={{ marginLeft: 0, borderColor: "#0000004d" }}
-              variant="inset"
-              component="li"
-            />
-          </>
+          user.id !== ctx.userProfile.id && (
+            <UserDisplyaCard
+              user={user}
+              isFollowing={isFollowing}></UserDisplyaCard>
+          )
         );
       })}
     </List>
