@@ -1,4 +1,4 @@
-import { List } from "@mui/material";
+import { Divider, List } from "@mui/material";
 
 import React, { useContext } from "react";
 import useGetUsersList from "../hooks/useGetUsersList";
@@ -26,9 +26,16 @@ const Users = () => {
           : false;
         return (
           user.id !== ctx.userProfile.id && (
-            <UserDisplyaCard
-              user={user}
-              isFollowing={isFollowing}></UserDisplyaCard>
+            <>
+              <UserDisplyaCard
+                user={user}
+                isFollowing={isFollowing}></UserDisplyaCard>
+              <Divider
+                sx={{ marginLeft: 0, borderColor: "#0000004d" }}
+                variant="inset"
+                component="li"
+              />
+            </>
           )
         );
       })}
