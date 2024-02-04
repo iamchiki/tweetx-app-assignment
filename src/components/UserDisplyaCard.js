@@ -46,22 +46,20 @@ const UserDisplyaCard = ({ user, isFollowing }) => {
   };
   return (
     <>
-      <ListItem key={user.id} alignItems="flex-start">
+      <ListItem key={user?.id} alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="" src="" />
         </ListItemAvatar>
         <ListItemText
-          primary={user?.name}
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"></Typography>
-              {user?.email}
-            </React.Fragment>
+          primary={
+            <Typography
+              sx={{ textTransform: "capitalize" }}
+              component="span"
+              variant="body1">
+              {user?.name}
+            </Typography>
           }
+          secondary={`Following:${user?.following?.length}`}
         />
         <Button
           sx={{
@@ -77,11 +75,6 @@ const UserDisplyaCard = ({ user, isFollowing }) => {
           {following ? "Following" : "Follow"}
         </Button>
       </ListItem>
-      <Divider
-        sx={{ marginLeft: 0, borderColor: "#0000004d" }}
-        variant="inset"
-        component="li"
-      />
     </>
   );
 };
