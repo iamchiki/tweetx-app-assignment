@@ -46,7 +46,7 @@ const UserDisplyaCard = ({ user, isFollowing }) => {
   };
   return (
     <>
-      <ListItem key={user?.id} alignItems="flex-start">
+      <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="" src="" />
         </ListItemAvatar>

@@ -18,12 +18,12 @@ const CustomTabs = styled(Tabs)`
     color: #bcb4b4;
   }
 
-  & .Mui-selected {
-    color: #000;
-  }
-
   & .css-1aquho2-MuiTabs-indicator {
     background-color: #000;
+  }
+
+  & .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    color: #000;
   }
 `;
 
@@ -60,7 +60,7 @@ const UserInfo = ({ userDtlMenu }) => {
   };
   return (
     <>
-      <Container component="section" maxWidth="xs">
+      <Container component="section" maxWidth="sm">
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderTop: 1, borderColor: "divider" }}>
             <CustomTabs
@@ -69,7 +69,7 @@ const UserInfo = ({ userDtlMenu }) => {
               aria-label="basic tabs example"
               centered>
               {userDtlMenu.map((item, index) => (
-                <Tab label={item} {...a11yProps(index)} />
+                <Tab key={item} label={item} {...a11yProps(index)} />
               ))}
             </CustomTabs>
           </Box>

@@ -2,7 +2,6 @@ import { Avatar, Container, List, ListItem, Typography } from "@mui/material";
 import React from "react";
 
 const ProfileCard = ({ userDtlMenu, user }) => {
-  console.log(user);
   return (
     <>
       <Container
@@ -20,7 +19,7 @@ const ProfileCard = ({ userDtlMenu, user }) => {
           <List sx={{ display: "flex", color: "#bcb4b4" }}>
             {userDtlMenu.map((item) => {
               return (
-                <ListItem sx={{ paddingLeft: 0 }}>
+                <ListItem key={item} sx={{ paddingLeft: 0 }}>
                   <Typography variant="body2" component="div">
                     {`${item} : ${user[item.toLowerCase()]?.length}`}
                   </Typography>
