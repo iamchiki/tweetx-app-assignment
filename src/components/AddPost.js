@@ -16,7 +16,10 @@ const AddPost = () => {
       // update userprofile state
       ctx.userProfile = {
         ...ctx.userProfile,
-        posts: [...ctx.userProfile.posts, postRef.current.value],
+        posts: [
+          ...ctx.userProfile.posts,
+          { post: postRef.current.value, postTimestamp: Date.now() },
+        ],
       };
       const userPostRef = doc(db, "users", ctx.currentUser.uid);
 

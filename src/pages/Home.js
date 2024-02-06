@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <Toolbar />
         <Outlet></Outlet>
       </Box>
+      <Footer></Footer>
     </>
   );
 };
