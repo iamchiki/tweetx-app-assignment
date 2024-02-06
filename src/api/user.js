@@ -30,3 +30,16 @@ export const convertUserTimestampToPeriod = (miliseconds) => {
     return `${seconds} sec ago`;
   }
 };
+
+export const getUserFeed = (followingUser) => {
+  let arr = [];
+  followingUser.forEach((user, i) => {
+    arr = [
+      ...arr,
+      ...user.posts.map((post) => {
+        return { name: user.name, ...post };
+      }),
+    ];
+  });
+  return arr.sort((a, b) => b.postTimestamp - a.postTimestamp);
+};

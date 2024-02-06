@@ -13,7 +13,6 @@ import { convertUserTimestampToPeriod } from "../api/user";
 const UserPostCard = ({ user, elevation, userPost }) => {
   const totalMillisecond = Date.now() - userPost.postTimestamp;
 
-  console.log(convertUserTimestampToPeriod(totalMillisecond));
   return (
     <Paper elevation={elevation} sx={{ mb: "1rem" }}>
       <ListItem alignItems="flex-start" sx={{ padding: "1rem" }}>
