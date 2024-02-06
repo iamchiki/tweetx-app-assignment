@@ -3,7 +3,7 @@ import TweetxContext from "../store/context";
 import { Container, List } from "@mui/material";
 import UserPostCard from "./UserPostCard";
 import useGetUserDtl from "../hooks/useGetUserDtl";
-import { getUserFeed } from "../api/user";
+import { getUserFeed } from "../util/user";
 
 const UserFeedList = () => {
   const ctx = useContext(TweetxContext);

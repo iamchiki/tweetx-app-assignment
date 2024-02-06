@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getUserById } from "../api/user";
+import { getUserById } from "../util/user";
 
 const useGetUserDtl = (arr) => {
   const [userDtlList, setUserDtlList] = useState([]);

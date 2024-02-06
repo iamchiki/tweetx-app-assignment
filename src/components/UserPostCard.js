@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { convertUserTimestampToPeriod } from "../api/user";
+import { convertUserTimestampToPeriod } from "../util/user";
 
 const UserPostCard = ({ user, elevation, userPost }) => {
   const totalMillisecond = Date.now() - userPost.postTimestamp;
