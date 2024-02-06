@@ -1,4 +1,4 @@
-import { Box, Button, TextareaAutosize } from "@mui/material";
+import { Box, Button, Container, TextareaAutosize } from "@mui/material";
 import React, { useContext, useRef } from "react";
 import TweetxContext from "../store/context";
 import { db } from "../firebase/firebase-config";
@@ -32,14 +32,7 @@ const AddPost = () => {
     }
   };
   return (
-    <Box
-      component="section"
-      sx={{
-        width: "100%",
-        maxWidth: 360,
-        bgcolor: "background.paper",
-        margin: "0 auto",
-      }}>
+    <Container component="section" maxWidth="sm">
       <Button
         sx={{
           color: "#fff",
@@ -79,7 +72,7 @@ const AddPost = () => {
           Post
         </Button>
       </Box>
-    </Box>
+    </Container>
   );
 };
 
