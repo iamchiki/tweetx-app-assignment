@@ -1,77 +1,41 @@
-import { Box, Button, Container, TextareaAutosize } from "@mui/material";
-import React, { useContext, useRef } from "react";
+import { Button, Collapse, Container } from "@mui/material";
+import React, { useContext, useState } from "react";
 import TweetxContext from "../store/context";
-import { db } from "../firebase/firebase-config";
-import { doc, updateDoc } from "firebase/firestore";
+import PostBox from "./PostBox";
+import { TransitionGroup } from "react-transition-group";
 
 const AddPost = () => {
   const ctx = useContext(TweetxContext);
 
-  const postRef = useRef("");
-  const postSubmitHandler = async (e) => {
-    try {
-      if (postRef.current.value === "") {
-        throw new Error("Please Write post");
-      }
-      // update userprofile state
-      ctx.userProfile = {
-        ...ctx.userProfile,
-        posts: [
-          ...ctx.userProfile.posts,
-          { post: postRef.current.value, postTimestamp: Date.now() },
-        ],
-      };
-      const userPostRef = doc(db, "users", ctx.currentUser.uid);
+  const [display, setdisplay] = useState(false);
 
-      // update firebase db wiht updated state
-      await updateDoc(userPostRef, {
-        posts: [...ctx.userProfile.posts],
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const displayPostBox = () => {
+    setdisplay(true);
   };
+
   return (
-    <Container component="section" maxWidth="sm">
+    <Container
+      component="section"
+      maxWidth="sm"
+      sx={{
+        marginBottom: "2rem",
+      }}>
       <Button
         sx={{
           color: "#fff",
           backgroundColor: "#ef4c4a",
           textTransform: "capitalize",
           display: "block",
-        }}>
+          marginBottom: "1rem",
+        }}
+        onClick={displayPostBox}>
         Write
       </Button>
-      <Box component="div" sx={{}}>
-        <TextareaAutosize
-          minRows={3}
-          aria-label="maximum height"
-          placeholder="Write your post here"
-          ref={postRef}
-          style={{
-            width: "100%",
-            fontSize: "0.875rem",
-            fontWeight: "400",
-            lineHeight: "1.5",
-            padding: "8px 12px",
-            borderRadius: "8px",
-            color: "#1C2025",
-            background: "#fff",
-            border: "1px solid #DAE2ED",
-            boxShadow: "0px 2px 2px #F3F6F9",
-          }}
-        />
-        <Button
-          onClick={postSubmitHandler}
-          sx={{
-            color: "#fff",
-            backgroundColor: "#ef4c4a",
-            textTransform: "capitalize",
-            display: "block",
-          }}>
-          Post
-        </Button>
-      </Box>
+      {/* {display && <PostBox display={setdisplay}></PostBox>} */}
+
+      <Collapse in={display}>
+        <PostBox displayBox={setdisplay}></PostBox>
+      </Collapse>
     </Container>
   );
 };
