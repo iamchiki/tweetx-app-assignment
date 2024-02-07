@@ -13,6 +13,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase/firebase-config";
 import { doc, setDoc } from "firebase/firestore";
+import CustomBtnComponent from "../components/UI/CustomBtnComponent";
 
 const Register = () => {
   const nameRef = useRef("");
@@ -125,16 +126,23 @@ const Register = () => {
               />
             </Grid>
           </Grid>
-          <Button
+          <CustomBtnComponent
+            sx={{
+              mt: 3,
+              mb: 2,
+            }}
             type="submit"
-            fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}>
+            fullWidth={true}>
             Sign Up
-          </Button>
+          </CustomBtnComponent>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link component={RouterLink} to="/login" variant="body2">
+              <Link
+                component={RouterLink}
+                to="/login"
+                variant="body2"
+                sx={{ color: "#ef4c4a" }}>
                 Already have an account? Log in
               </Link>
             </Grid>

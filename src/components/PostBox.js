@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import TweetxContext from "../store/context";
 import { db } from "../firebase/firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
+import CustomBtnComponent from "./UI/CustomBtnComponent";
 
 const PostBox = ({ displayBox }) => {
   const ctx = useContext(TweetxContext);
@@ -60,16 +61,9 @@ const PostBox = ({ displayBox }) => {
           marginBottom: "1rem",
         }}
       />
-      <Button
-        onClick={postSubmitHandler}
-        sx={{
-          color: "#fff",
-          backgroundColor: "#ef4c4a",
-          textTransform: "capitalize",
-          display: "block",
-        }}>
+      <CustomBtnComponent onClick={postSubmitHandler} variant="contained">
         Post
-      </Button>
+      </CustomBtnComponent>
     </Box>
   );
 };

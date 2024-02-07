@@ -12,6 +12,7 @@ import {
 import TweetxContext from "../store/context";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
+import CustomBtnComponent from "./UI/CustomBtnComponent";
 
 const UserDisplyaCard = ({ user, isFollowing }) => {
   const [following, setfollowing] = useState(isFollowing);
@@ -61,19 +62,14 @@ const UserDisplyaCard = ({ user, isFollowing }) => {
           }
           secondary={`Following:${user?.following?.length}`}
         />
-        <Button
-          sx={{
-            color: "#fff",
-            backgroundColor: "#ef4c4a",
-            textTransform: "capitalize",
-          }}
-          variant="contained"
+        <CustomBtnComponent
           onClick={() => {
             followHandler(user.id);
           }}
-          disabled={following}>
+          disabled={following}
+          variant="contained">
           {following ? "Following" : "Follow"}
-        </Button>
+        </CustomBtnComponent>
       </ListItem>
     </>
   );

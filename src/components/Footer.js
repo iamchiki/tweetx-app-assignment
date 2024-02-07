@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { auth } from "../firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
 import TweetxContext from "../store/context";
+import CustomBtnComponent from "./UI/CustomBtnComponent";
 
 const Footer = () => {
   const ctx = useContext(TweetxContext);
@@ -11,16 +12,6 @@ const Footer = () => {
   const signOutHandler = async () => {
     try {
       const userCredential = await signOut(auth);
-
-      // ctx.userProfile = {
-      //   id: "",
-      //   name: "",
-      //   email: "",
-      //   posts: [],
-      //   followers: [],
-      //   following: [],
-      // };
-      // console.log(ctx);
 
       navigate("/login");
     } catch (error) {}
@@ -39,16 +30,9 @@ const Footer = () => {
         justifyContent: "center",
         alignItems: "center",
       }}>
-      <Button
-        sx={{
-          color: "#fff",
-          backgroundColor: "#ef4c4a",
-          textTransform: "capitalize",
-        }}
-        variant="contained"
-        onClick={signOutHandler}>
+      <CustomBtnComponent onClick={signOutHandler} variant="contained">
         Log out
-      </Button>
+      </CustomBtnComponent>
     </Box>
   );
 };

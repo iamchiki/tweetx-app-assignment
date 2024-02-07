@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
+import CustomBtnComponent from "../components/UI/CustomBtnComponent";
 
 const Login = () => {
   const emailRef = useRef("");
@@ -72,17 +73,23 @@ const Login = () => {
             autoComplete="current-password"
             inputRef={passwordRef}
           />
-
-          <Button
+          <CustomBtnComponent
+            sx={{
+              mt: 3,
+              mb: 2,
+            }}
             type="submit"
-            fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}>
+            fullWidth={true}>
             Sign In
-          </Button>
+          </CustomBtnComponent>
           <Grid container>
             <Grid item>
-              <Link component={RouterLink} to="/register" variant="body2">
+              <Link
+                component={RouterLink}
+                to="/register"
+                variant="body2"
+                sx={{ color: "#ef4c4a" }}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

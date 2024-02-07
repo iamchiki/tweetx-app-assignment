@@ -1,8 +1,10 @@
-import { Button, Collapse, Container } from "@mui/material";
+import { Collapse, Container } from "@mui/material";
+
 import React, { useContext, useState } from "react";
 import TweetxContext from "../store/context";
 import PostBox from "./PostBox";
-import { TransitionGroup } from "react-transition-group";
+
+import CustomBtnComponent from "./UI/CustomBtnComponent";
 
 const AddPost = () => {
   const ctx = useContext(TweetxContext);
@@ -20,18 +22,14 @@ const AddPost = () => {
       sx={{
         marginBottom: "2rem",
       }}>
-      <Button
+      <CustomBtnComponent
         sx={{
-          color: "#fff",
-          backgroundColor: "#ef4c4a",
-          textTransform: "capitalize",
-          display: "block",
           marginBottom: "1rem",
         }}
-        onClick={displayPostBox}>
+        onClick={displayPostBox}
+        variant="contained">
         Write
-      </Button>
-      {/* {display && <PostBox display={setdisplay}></PostBox>} */}
+      </CustomBtnComponent>
 
       <Collapse in={display}>
         <PostBox displayBox={setdisplay}></PostBox>
