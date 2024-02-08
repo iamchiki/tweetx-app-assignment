@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -14,12 +14,20 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase/firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 import CustomBtnComponent from "../components/UI/CustomBtnComponent";
+import { Alert, Snackbar } from "@mui/material";
 
 const Register = () => {
   const nameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
+
+  const [open, setOpen] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // to navigate to other pages
   const navigate = useNavigate();
@@ -47,25 +55,31 @@ const Register = () => {
         throw new Error("Password does not match");
       }
     } catch (error) {
-      let msg;
-      if (error.code) {
-        msg =
-          error.code === "auth/weak-password"
-            ? error.message
-            : error.code.slice(5);
-      } else {
-        msg = error.message;
-      }
-
+      console.dir(error);
+      setOpen(true);
+      setErrMsg(error.message);
       navigate("/register");
     }
   };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}>
+          {errMsg}
+        </Alert>
+      </Snackbar>
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 12,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -73,11 +87,7 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={signupHandler}
-          sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={signupHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

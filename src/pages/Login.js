@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -12,16 +12,23 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
 import CustomBtnComponent from "../components/UI/CustomBtnComponent";
+import { Alert, Snackbar } from "@mui/material";
 
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
+  const [open, setOpen] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const navigate = useNavigate();
   const signinHandler = async (e) => {
     e.preventDefault();
     try {
-      // login existing user
       const userCredential = await signInWithEmailAndPassword(
         auth,
         emailRef.current.value,
@@ -30,15 +37,31 @@ const Login = () => {
 
       navigate("/home");
     } catch (error) {
+      setOpen(true);
+      setErrMsg(error.message);
       navigate("/login");
     }
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%" }}>
+          {errMsg}
+        </Alert>
+      </Snackbar>
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 12,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -46,12 +69,9 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box
-          component="form"
-          onSubmit={signinHandler}
-          noValidate
-          sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={signinHandler} sx={{ mt: 1 }}>
           <TextField
+            novli
             margin="normal"
             required
             fullWidth
