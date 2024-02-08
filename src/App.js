@@ -14,6 +14,8 @@ function App() {
         <Route path="register" element={<Register></Register>} />
         <Route path="login" element={<Login></Login>}></Route>
         <Route path="home" element={<Home></Home>}>
+          <Route path="" element={<Navigate to="feed"></Navigate>}></Route>
+          {/* <Route index element={<Feed></Feed>}></Route> */}
           <Route path="feed" element={<Feed></Feed>}></Route>
           <Route path="users" element={<Users></Users>}></Route>
           <Route path="profile" element={<UserProfile></UserProfile>}></Route>
