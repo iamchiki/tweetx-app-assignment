@@ -1,16 +1,14 @@
-import { Box, Button, TextareaAutosize } from "@mui/material";
-import React, { useContext, useEffect, useRef } from "react";
+import { Alert, Box, Button, Snackbar, TextareaAutosize } from "@mui/material";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import TweetxContext from "../store/context";
 import { db } from "../firebase/firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
 import CustomBtnComponent from "./UI/CustomBtnComponent";
 
-const PostBox = ({ displayBox }) => {
+const PostBox = ({ displayBox, successNotification, errorNotification }) => {
   const ctx = useContext(TweetxContext);
 
   const postRef = useRef("");
-
-  console.log(postRef);
 
   useEffect(() => {
     postRef.current.maxLength = 100;
@@ -35,8 +33,9 @@ const PostBox = ({ displayBox }) => {
         posts: [...ctx.userProfile.posts],
       });
       displayBox(false);
+      successNotification();
     } catch (error) {
-      console.log(error);
+      errorNotification(error);
     }
   };
   return (

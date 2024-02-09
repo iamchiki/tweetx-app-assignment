@@ -1,4 +1,4 @@
-import { Collapse, Container } from "@mui/material";
+import { Alert, Collapse, Container, Snackbar } from "@mui/material";
 
 import React, { useContext, useState } from "react";
 import TweetxContext from "../store/context";
@@ -11,8 +11,29 @@ const AddPost = () => {
 
   const [display, setdisplay] = useState(false);
 
+  const [open, setOpen] = useState(false);
+  const [message, setMesssage] = useState("");
+  const [severity, setSeverity] = useState();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const displayPostBox = () => {
     setdisplay(true);
+  };
+
+  const successHandler = () => {
+    setOpen(true);
+    setMesssage("Your Post Submitted Succesfull!");
+    setSeverity("success");
+  };
+
+  const errorHandler = (error) => {
+    setOpen(true);
+    setMesssage(error.message);
+    console.log(error);
+    setSeverity("error");
   };
 
   return (
@@ -22,6 +43,20 @@ const AddPost = () => {
       sx={{
         marginBottom: "2rem",
       }}>
+      <Snackbar
+        open={open}
+        autoHideDuration={90000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ top: "16px" }}>
+        <Alert
+          onClose={handleClose}
+          severity={severity}
+          variant="filled"
+          sx={{ width: "100%" }}>
+          {message}
+        </Alert>
+      </Snackbar>
       <CustomBtnComponent
         sx={{
           marginBottom: "1rem",
@@ -32,7 +67,10 @@ const AddPost = () => {
       </CustomBtnComponent>
 
       <Collapse in={display}>
-        <PostBox displayBox={setdisplay}></PostBox>
+        <PostBox
+          displayBox={setdisplay}
+          successNotification={successHandler}
+          errorNotification={errorHandler}></PostBox>
       </Collapse>
     </Container>
   );
