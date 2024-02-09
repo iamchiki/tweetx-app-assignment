@@ -45,7 +45,7 @@ const AddPost = () => {
       }}>
       <Snackbar
         open={open}
-        autoHideDuration={90000}
+        autoHideDuration={3000}
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         sx={{ top: "16px" }}>
